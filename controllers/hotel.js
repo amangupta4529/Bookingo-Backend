@@ -55,7 +55,7 @@ export const countByCity = async (req, res, next) => {
   const cities = req.query.cities.split(",");
   try {
     const list = await Promise.all(
-      cities.map((city) => {
+      cities.map((city) => { 
         return Hotel.countDocuments({ city: city });
       })
     );
@@ -85,10 +85,13 @@ export const countByType = async (req, res, next) => {
 };
 
 export const getHotelRooms = async (req, res, next) => {
+  
+  console.log("called");
   try {
     const hotel = await Hotel.findById(req.params.id);
     const list = await Promise.all(
       hotel.rooms.map((room) => {
+        console.log(room);
         return Room.findById(room);
       })
     );

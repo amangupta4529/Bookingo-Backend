@@ -6,11 +6,11 @@ import usersRoute from "./routes/users.js";
 import hotelsRoute from "./routes/hotels.js";
 import roomsRoute from "./routes/rooms.js";
 import cookieParser from "cookie-parser";
+import paymentGatewayRoute from "./routes/paymentGateway.js"
 import cors from "cors";
-
+import validateRoute from "./routes/Amountvalidation.js"
 const app = express();
 dotenv.config();
-
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
@@ -24,13 +24,14 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!");
   connect();
 });
-
 //middlewares
-app.use(cors())
+
+app.use(cors());
 app.use(cookieParser())
 app.use(express.json());
-
-app.use("/api/auth", authRoute);
+app.use("/api/validation",validateRoute);
+app.use("/api/payment",paymentGatewayRoute);
+app.use("/api/auth",authRoute);
 app.use("/api/users", usersRoute);
 app.use("/api/hotels", hotelsRoute);
 app.use("/api/rooms", roomsRoute);
@@ -49,5 +50,5 @@ const port= process.env.PORT || 8800;
 
 app.listen(port, () => {
   connect();
-  console.log("Connected to backend.");
+  console.log("server is running on port=",port);
 });
