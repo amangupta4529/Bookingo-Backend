@@ -3,9 +3,10 @@ import shortid from "shortid"
 import Razorpay from "razorpay";
 
 export const razorPayPost=async(amount,req,res,next)=>{
+  
     const razorpay=new Razorpay({
-        key_id:"rzp_test_gjARfUjUfUjwU8",
-        key_secret:"9eDsH0MWpZjRvz4fdxsLz4dJ"
+        key_id:process.env.RAZORPAYID,
+        key_secret:process.env.RAZORPAYSECRET
     })
    const payment_capture=1;
    const currency='INR';
