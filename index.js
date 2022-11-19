@@ -29,7 +29,7 @@ mongoose.connection.on("disconnected", () => {
 app.use(cors());
 app.use(cookieParser())
 app.use(express.json());
-app.get("/",()=>{
+app.get("/",(req,res)=>{
   res.send("app is working properly");
 })
 app.use("/api/validation",validateRoute);
